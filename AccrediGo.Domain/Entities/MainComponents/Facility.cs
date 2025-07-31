@@ -77,7 +77,6 @@ namespace AccrediGo.Domain.Entities.MainComponents
         /// <summary>
         /// The identifier of the accreditation this facility is associated with.
         /// </summary>
-        [Required]
         public string AccreditationId { get; set; } = null!;
 
         /// <summary>
