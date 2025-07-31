@@ -31,7 +31,6 @@ namespace AccrediGo.Domain.Entities.MainComponents
         /// <summary>
         /// Navigation property for the related answer option.
         /// </summary>
-        [ForeignKey("AnswerOptionId")]
         public AnswerOption AnswerOption { get; set; } = null!;
 
         /// <summary>

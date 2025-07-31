@@ -58,8 +58,8 @@ namespace AccrediGo.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             // Configure BaseEntity properties (inherited by all entities)
-            modelBuilder.Entity<BaseEntity>()
-                .HasQueryFilter(e => !e.IsDeleted);
+            //modelBuilder.Entity<BaseEntity>()
+            //    .HasQueryFilter(e => !e.IsDeleted);
 
             // BillingDetails configurations
             modelBuilder.Entity<SubscriptionPlanFeature>()
@@ -107,8 +107,8 @@ namespace AccrediGo.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Roles configurations
-            modelBuilder.Entity<FacilityUser>()
-                .HasKey(fu => new { fu.UserID, fu.FacilityID });
+            //modelBuilder.Entity<FacilityUser>()
+            //    .HasKey(fu => new { fu.UserID, fu.FacilityID });
 
             modelBuilder.Entity<FacilityRolePermission>()
                 .HasKey(frp => new { frp.FacilityRoleID, frp.PermissionID });
