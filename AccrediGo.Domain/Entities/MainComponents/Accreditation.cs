@@ -45,11 +45,6 @@ namespace AccrediGo.Domain.Entities.MainComponents
         public string? ArabicDescription { get; set; }
 
         /// <summary>
-        /// Collection of gap analysis sessions associated with this accreditation.
-        /// </summary>
-        public List<GapAnalysisSession> GapAnalysisSessions { get; set; } = new();
-
-        /// <summary>
         /// Collection of chapter-accreditation-facility type relationships.
         /// </summary>
         public List<ChapterAccreditationFacilityType> ChapterAccreditationFacilityTypes { get; set; } = new();
