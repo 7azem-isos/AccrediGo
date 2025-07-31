@@ -1,0 +1,6 @@
+@AccrediGo_HostAddress = http://localhost:5255
+
+GET {{AccrediGo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
