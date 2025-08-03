@@ -22,9 +22,8 @@ namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.GetAll
 
         public async Task<IEnumerable<GetAllSubscriptionPlansDto>> Handle(GetAllSubscriptionPlansQuery request, CancellationToken cancellationToken)
         {
-            // Note: This requires adding IGenericQueryRepository<SubscriptionPlan> to IUnitOfWork
-            // For now, we'll use a placeholder implementation
-            throw new NotImplementedException("Query repository not yet implemented in IUnitOfWork");
+            var subscriptionPlans = await _unitOfWork.SubscriptionPlanRepository.GetAllAsync(cancellationToken);
+            return _mapper.Map<IEnumerable<GetAllSubscriptionPlansDto>>(subscriptionPlans);
         }
     }
 } 

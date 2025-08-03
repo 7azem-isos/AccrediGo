@@ -2,6 +2,7 @@ using AccrediGo.Models.Common;
 using AccrediGo.Controllers.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.API.Controllers.Health
 {

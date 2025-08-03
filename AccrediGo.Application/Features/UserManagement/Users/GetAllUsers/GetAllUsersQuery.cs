@@ -2,7 +2,7 @@ using MediatR;
 
 namespace AccrediGo.Application.Features.UserManagement.Users.GetAllUsers
 {
-    public class GetAllUsersQuery : IRequest<IEnumerable<GetAllUsersDto>>
+    public class GetAllUsersQuery : IRequest<PaginatedUsersResult>
     {
         public string RoleId { get; set; }
         public string Status { get; set; }

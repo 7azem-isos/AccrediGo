@@ -5,6 +5,7 @@ using AccrediGo.Application.Features.UserManagement.Users.UpdateUser;
 using AccrediGo.Application.Features.UserManagement.Users.DeleteUser;
 using AccrediGo.Models.Common;
 using AccrediGo.Controllers.Base;
+using AccrediGo.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,8 @@ namespace AccrediGo.API.Controllers.UserManagement
                 var paginatedResponse = PaginatedResponse<GetAllUsersDto>.Success(
                     paginatedResult.Result.ToList(),
                     paginatedResult.TotalItemsCount,
+                    query.PageNumber,
+                    query.PageSize,
                     "Users retrieved successfully"
                 );
 

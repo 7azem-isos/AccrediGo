@@ -20,7 +20,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.UpdateUser
 
         public async Task<UpdateUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _unitOfWork.UserQueryRepository.GetByIdAsync(request.Id);
+            var existingUser = await _unitOfWork.UserRepository.GetByIdAsync(request.Id, cancellationToken);
             
             if (existingUser == null)
             {
@@ -39,7 +39,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.UpdateUser
             }
 
             _unitOfWork.UserRepository.Update(entity);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<UpdateUserDto>(entity);
         }

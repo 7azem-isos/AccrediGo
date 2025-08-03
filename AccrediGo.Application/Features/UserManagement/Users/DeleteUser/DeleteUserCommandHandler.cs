@@ -17,7 +17,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.DeleteUser
 
         public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _unitOfWork.UserQueryRepository.GetByIdAsync(request.Id);
+            var existingUser = await _unitOfWork.UserRepository.GetByIdAsync(request.Id, cancellationToken);
             
             if (existingUser == null)
             {
@@ -25,7 +25,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.DeleteUser
             }
 
             _unitOfWork.UserRepository.Remove(existingUser);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return true;
         }

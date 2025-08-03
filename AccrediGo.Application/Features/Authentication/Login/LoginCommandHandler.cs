@@ -22,7 +22,7 @@ namespace AccrediGo.Application.Features.Authentication.Login
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             // Get all users and find by email (in a real app, you'd have a specific query)
-            var users = await _unitOfWork.UserQueryRepository.GetAllAsync();
+            var users = await _unitOfWork.UserRepository.GetAllAsync(cancellationToken);
             var user = users.FirstOrDefault(u => u.Email.Equals(request.Email, StringComparison.OrdinalIgnoreCase));
 
             if (user == null)

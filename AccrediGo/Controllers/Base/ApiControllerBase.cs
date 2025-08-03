@@ -1,3 +1,4 @@
+using AccrediGo.Domain.Interfaces;
 using AccrediGo.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 

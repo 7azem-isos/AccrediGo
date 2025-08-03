@@ -5,6 +5,7 @@ using AccrediGo.Controllers.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.Controllers
 {

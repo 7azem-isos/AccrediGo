@@ -21,7 +21,7 @@ namespace AccrediGo.Application.Features.Accreditation.Accreditations.GetAllAccr
 
         public async Task<IEnumerable<GetAllAccreditationsDto>> Handle(GetAllAccreditationsQuery request, CancellationToken cancellationToken)
         {
-            var accreditations = await _unitOfWork.AccreditationQueryRepository.GetAllAsync();
+            var accreditations = await _unitOfWork.AccreditationRepository.GetAllAsync(cancellationToken);
             return _mapper.Map<IEnumerable<GetAllAccreditationsDto>>(accreditations);
         }
     }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.Models.Common
 {
@@ -28,6 +29,8 @@ namespace AccrediGo.Models.Common
                 return int.TryParse(roleClaim, out var roleId) ? roleId : 0;
             }
         }
+
+        public string CompanyId => _httpContextAccessor.HttpContext?.User?.FindFirst("CompanyId")?.Value ?? string.Empty;
 
         public string CorrelationId => _httpContextAccessor.HttpContext?.TraceIdentifier ?? Guid.NewGuid().ToString();
 

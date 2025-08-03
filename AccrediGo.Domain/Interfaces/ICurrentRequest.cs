@@ -1,4 +1,4 @@
-namespace AccrediGo.Models.Common
+namespace AccrediGo.Domain.Interfaces
 {
     public interface ICurrentRequest
     {
@@ -7,6 +7,7 @@ namespace AccrediGo.Models.Common
         string UserName { get; }
         string UserEmail { get; }
         int UserRoleId { get; }
+        string CompanyId { get; }
         string CorrelationId { get; }
         DateTime RequestTime { get; }
     }
