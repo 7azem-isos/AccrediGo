@@ -12,16 +12,16 @@ namespace AccrediGo.Application.Services
     public class AuditService : IAuditService
     {
         private readonly ICurrentRequest _currentRequest;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextInfo _httpContextInfo;
         private readonly ILogger<AuditService> _logger;
 
         public AuditService(
             ICurrentRequest currentRequest,
-            IHttpContextAccessor httpContextAccessor,
+            IHttpContextInfo httpContextInfo,
             ILogger<AuditService> logger)
         {
             _currentRequest = currentRequest ?? throw new ArgumentNullException(nameof(currentRequest));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+            _httpContextInfo = httpContextInfo ?? throw new ArgumentNullException(nameof(httpContextInfo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -60,18 +60,7 @@ namespace AccrediGo.Application.Services
         {
             try
             {
-                var httpContext = _httpContextAccessor?.HttpContext;
-                if (httpContext == null) return "Unknown";
-
-                // Try to get the real IP address (handles proxies)
-                var forwardedHeader = httpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-                if (!string.IsNullOrEmpty(forwardedHeader))
-                {
-                    return forwardedHeader.Split(',')[0].Trim();
-                }
-
-                var remoteIp = httpContext.Connection?.RemoteIpAddress?.ToString();
-                return remoteIp ?? "Unknown";
+                return _httpContextInfo?.GetUserIpAddress() ?? "Unknown";
             }
             catch (Exception ex)
             {
@@ -84,10 +73,7 @@ namespace AccrediGo.Application.Services
         {
             try
             {
-                var httpContext = _httpContextAccessor?.HttpContext;
-                if (httpContext == null) return "Unknown";
-
-                return httpContext.Request.Headers["User-Agent"].FirstOrDefault() ?? "Unknown";
+                return _httpContextInfo?.GetUserAgent() ?? "Unknown";
             }
             catch (Exception ex)
             {

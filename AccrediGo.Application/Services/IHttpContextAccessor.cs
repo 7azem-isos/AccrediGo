@@ -1,6 +1,8 @@
 ﻿namespace AccrediGo.Application.Services
 {
-    internal interface IHttpContextAccessor
+    public interface IHttpContextInfo
     {
+        string? GetUserIpAddress();
+        string? GetUserAgent();
     }
 }

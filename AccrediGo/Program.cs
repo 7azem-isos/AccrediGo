@@ -16,6 +16,7 @@ using AccrediGo.Application.Interfaces;
 using AccrediGo.Application.Services;
 using AccrediGo.Models.Common;
 using AutoMapper;
+using AccrediGo.Infrastructure;
 
 namespace AccrediGo
 {
@@ -70,6 +71,9 @@ namespace AccrediGo
             // Register CurrentRequest Service
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<ICurrentRequest, CurrentRequest>();
+            
+            // Register Custom HttpContextInfo
+            builder.Services.AddScoped<AccrediGo.Application.Services.IHttpContextInfo, AccrediGo.Infrastructure.HttpContextAccessor>();
             
             // Register Audit Service
             builder.Services.AddScoped<IAuditService, AuditService>();
