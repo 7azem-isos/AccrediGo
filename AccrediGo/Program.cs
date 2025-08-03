@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using AccrediGo.Infrastructure.Data;
+using AccrediGo.Domain.Interfaces;
+using AccrediGo.Infrastructure.Repositories;
+using AccrediGo.Infrastructure.UnitOfWork;
+using MediatR;
 
 namespace AccrediGo
 {
@@ -9,27 +13,19 @@ namespace AccrediGo
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Retrieve environment variables
-            //var sqlServerHost = Environment.GetEnvironmentVariable("SQLSERVER_HOST")
-            //    ?? throw new InvalidOperationException("SQLSERVER_HOST environment variable is not set.");
-            //var sqlServerDatabase = Environment.GetEnvironmentVariable("SQLSERVER_DATABASE")
-            //    ?? throw new InvalidOperationException("SQLSERVER_DATABASE environment variable is not set.");
-            //var sqlServerUsername = Environment.GetEnvironmentVariable("SQLSERVER_USERNAME")
-            //    ?? throw new InvalidOperationException("SQLSERVER_USERNAME environment variable is not set.");
-            //var sqlServerPassword = Environment.GetEnvironmentVariable("SQLSERVER_PASSWORD")
-            //    ?? throw new InvalidOperationException("SQLSERVER_PASSWORD environment variable is not set.");
-
-            // Build connection string
-            //var connectionString = $"Server={sqlServerHost};Database={sqlServerDatabase};Integrated Security=True;TrustServerCertificate=True;";
-
             // Add services to the container.
 
             builder.Services.AddControllers();
             // Register DbContext
             builder.Services.AddDbContext<AccrediGoDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddScoped(typeof(AccrediGo.Domain.Interfaces.IGenericRepository<>),
-                          typeof(AccrediGo.Infrastructure.Repositories.GenericRepository<>));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped(typeof(IGenericQueryRepository<>), typeof(GenericQueryRepository<>));
+            builder.Services.AddScoped(typeof(IGenericCommandRepository<>), typeof(GenericCommandRepository<>));
+
+            // MediatR handlers
+            builder.Services.AddMediatR(typeof(Program));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
