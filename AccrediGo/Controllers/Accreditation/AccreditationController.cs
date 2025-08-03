@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Swashbuckle.AspNetCore.Annotations;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.API.Controllers.Accreditation
 {

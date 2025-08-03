@@ -13,6 +13,7 @@ using System.Text;
 using AccrediGo.Models.Auth;
 using AccrediGo.Services;
 using AccrediGo.Application.Interfaces;
+using AccrediGo.Application.Services;
 using AccrediGo.Models.Common;
 using AutoMapper;
 

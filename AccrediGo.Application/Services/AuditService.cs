@@ -1,9 +1,8 @@
 using System;
 using AccrediGo.Application.Interfaces;
-using AccrediGo.Models.Common;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.Application.Services
 {
