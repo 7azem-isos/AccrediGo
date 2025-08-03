@@ -76,13 +76,13 @@ namespace AccrediGo.Infrastructure.Data
 
             modelBuilder.Entity<Subscription>()
                 .HasOne(s => s.Facility)
-                .WithMany()
+                .WithMany(f => f.Subscriptions)
                 .HasForeignKey(s => s.FacilityID)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Payment>()
                 .HasOne(p => p.Facility)
-                .WithMany()
+                .WithMany(f => f.Payments)
                 .HasForeignKey(p => p.FacilityID)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -102,7 +102,7 @@ namespace AccrediGo.Infrastructure.Data
 
             modelBuilder.Entity<Facility>()
                 .HasOne(f => f.Accreditation)
-                .WithMany()
+                .WithMany(a => a.Facilities)
                 .HasForeignKey(f => f.AccreditationId)
                 .OnDelete(DeleteBehavior.Restrict);
 

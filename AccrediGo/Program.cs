@@ -27,11 +27,7 @@ namespace AccrediGo
             builder.Services.AddControllers();
             // Register DbContext
             builder.Services.AddDbContext<AccrediGoDbContext>(options =>
-                options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("AccrediGo.Infrastructure")
-                )
-            );
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped(typeof(AccrediGo.Domain.Interfaces.IGenericRepository<>),
                           typeof(AccrediGo.Infrastructure.Repositories.GenericRepository<>));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
