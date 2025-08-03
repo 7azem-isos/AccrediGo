@@ -26,6 +26,7 @@ namespace AccrediGo.Domain.Entities.BillingDetails
         /// <summary>
         /// The identifier of the facility associated with this subscription.
         /// </summary>
+        [Required]
         public string FacilityID { get; set; } = null!;
 
         /// <summary>

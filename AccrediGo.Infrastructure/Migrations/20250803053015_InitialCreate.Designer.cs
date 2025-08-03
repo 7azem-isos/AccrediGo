@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccrediGo.Infrastructure.Migrations
 {
     [DbContext(typeof(AccrediGoDbContext))]
-    [Migration("20250731135629_InitialCreate")]
+    [Migration("20250803053015_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -1163,7 +1163,7 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
                         .WithMany("Payments")
                         .HasForeignKey("FacilityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.BillingDetails.Subscription", "Subscription")
@@ -1182,7 +1182,7 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
                         .WithMany("Subscriptions")
                         .HasForeignKey("FacilityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.SubscriptionPlan", "SubscriptionPlan")
@@ -1269,7 +1269,7 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Accreditation", "Accreditation")
                         .WithMany("Facilities")
                         .HasForeignKey("AccreditationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.FacilityType", "FacilityType")

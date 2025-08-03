@@ -226,7 +226,7 @@ namespace AccrediGo.Infrastructure.Migrations
                         column: x => x.AccreditationId,
                         principalTable: "Accreditations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Facilities_FacilityTypes_FacilityTypeId",
                         column: x => x.FacilityTypeId,
@@ -431,7 +431,7 @@ namespace AccrediGo.Infrastructure.Migrations
                         column: x => x.FacilityID,
                         principalTable: "Facilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Subscriptions_SubscriptionPlans_PlanID",
                         column: x => x.PlanID,
@@ -579,7 +579,7 @@ namespace AccrediGo.Infrastructure.Migrations
                         column: x => x.FacilityID,
                         principalTable: "Facilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Payments_Subscriptions_SubscriptionID",
                         column: x => x.SubscriptionID,
