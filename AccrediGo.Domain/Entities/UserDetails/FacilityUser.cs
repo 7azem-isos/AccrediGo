@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AccrediGo.Domain.Entities.MainComponents;
 using AccrediGo.Domain.Entities.Roles;
 using AccrediGo.Domain.Entities.BaseModels;
+using AccrediGo.Domain.Entities.SessionDetails;
 
 namespace AccrediGo.Domain.Entities.UserDetails
 {
@@ -52,6 +53,8 @@ namespace AccrediGo.Domain.Entities.UserDetails
         /// </summary>
         [ForeignKey("FacilityRoleID")]
         public FacilityRole FacilityRole { get; set; } = null!;
+
+        public List<ActionPlanComponent> ActionPlanComponents { get; set; } = new();
     }
 
 }

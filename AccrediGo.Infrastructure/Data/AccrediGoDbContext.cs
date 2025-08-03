@@ -86,6 +86,36 @@ namespace AccrediGo.Infrastructure.Data
                 .HasForeignKey(p => p.FacilityID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<SessionComponent>()
+                .HasOne(sc => sc.GapAnalysisSession)
+                .WithMany(gas => gas.SessionComponents)
+                .HasForeignKey(sc => sc.SessionId)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction
+
+            modelBuilder.Entity<SessionComponent>()
+                .HasOne(sc => sc.Question)
+                .WithMany(q => q.SessionComponents)
+                .HasForeignKey(sc => sc.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction
+
+            modelBuilder.Entity<ActionPlanComponent>()
+                .HasOne(apc => apc.GapAnalysisSession)
+                .WithMany(gas => gas.ActionPlanComponents)
+                .HasForeignKey(apc => apc.SessionId)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction
+
+            modelBuilder.Entity<ActionPlanComponent>()
+                .HasOne(apc => apc.ImprovementScenario)
+                .WithMany(ic => ic.ActionPlanComponents)
+                .HasForeignKey(apc => apc.ScenarioId)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction
+
+            modelBuilder.Entity<ActionPlanComponent>()
+                .HasOne(apc => apc.FacilityUser)
+                .WithMany(fUser => fUser.ActionPlanComponents)
+                .HasForeignKey(apc => apc.AssignedTo)
+                .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction
+
             // MainComponents configurations
             modelBuilder.Entity<AnswerOption>()
                 .HasOne(ao => ao.ImprovementScenario)
@@ -100,15 +130,12 @@ namespace AccrediGo.Infrastructure.Data
                 .HasForeignKey(q => q.DependsOnQuestionId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+
             modelBuilder.Entity<Facility>()
                 .HasOne(f => f.Accreditation)
                 .WithMany(a => a.Facilities)
                 .HasForeignKey(f => f.AccreditationId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // Roles configurations
-            //modelBuilder.Entity<FacilityUser>()
-            //    .HasKey(fu => new { fu.UserID, fu.FacilityID });
 
             modelBuilder.Entity<FacilityRolePermission>()
                 .HasKey(frp => new { frp.FacilityRoleID, frp.PermissionID });

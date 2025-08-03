@@ -670,13 +670,13 @@ namespace AccrediGo.Infrastructure.Migrations
                         column: x => x.SessionId,
                         principalTable: "GapAnalysisSessions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SessionComponents_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -727,19 +727,19 @@ namespace AccrediGo.Infrastructure.Migrations
                         column: x => x.AssignedTo,
                         principalTable: "FacilityUsers",
                         principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ActionPlanComponents_GapAnalysisSessions_SessionId",
                         column: x => x.SessionId,
                         principalTable: "GapAnalysisSessions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ActionPlanComponents_ImprovementScenarios_ScenarioId",
                         column: x => x.ScenarioId,
                         principalTable: "ImprovementScenarios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
