@@ -4,6 +4,10 @@ using AccrediGo.Domain.Interfaces;
 using AccrediGo.Infrastructure.Repositories;
 using AccrediGo.Infrastructure.UnitOfWork;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using AccrediGo.Application.Mappers;
+using AccrediGo.Application.Mappers.BillingDetails;
+using AccrediGo.Application.Commands.BillingDetails.SubscriptionPlan.CreateSubscriptionPlan;
 
 namespace AccrediGo
 {
@@ -23,9 +27,9 @@ namespace AccrediGo
 
             builder.Services.AddScoped(typeof(IGenericQueryRepository<>), typeof(GenericQueryRepository<>));
             builder.Services.AddScoped(typeof(IGenericCommandRepository<>), typeof(GenericCommandRepository<>));
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());            // MediatR handlers
+            builder.Services.AddMediatR(typeof(CreateSubscriptionPlanCommandHandler).Assembly);
 
-            // MediatR handlers
-            builder.Services.AddMediatR(typeof(Program));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
