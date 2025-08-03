@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using AccrediGo.Domain.Entities.BillingDetails;
 using AccrediGo.Domain.Entities.BaseModels;
 
-namespace AccrediGo.Domain.Entities
+namespace AccrediGo.Domain.Entities.BillingDetails
 {
     /// <summary>
     /// Represents a subscription plan available for facilities in the system.
