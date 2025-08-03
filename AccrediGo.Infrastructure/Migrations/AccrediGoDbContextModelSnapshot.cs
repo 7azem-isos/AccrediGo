@@ -1361,21 +1361,21 @@ namespace AccrediGo.Infrastructure.Migrations
             modelBuilder.Entity("AccrediGo.Domain.Entities.SessionDetails.ActionPlanComponent", b =>
                 {
                     b.HasOne("AccrediGo.Domain.Entities.UserDetails.FacilityUser", "FacilityUser")
-                        .WithMany()
+                        .WithMany("ActionPlanComponents")
                         .HasForeignKey("AssignedTo")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.ImprovementScenario", "ImprovementScenario")
                         .WithMany("ActionPlanComponents")
                         .HasForeignKey("ScenarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.SessionDetails.GapAnalysisSession", "GapAnalysisSession")
                         .WithMany("ActionPlanComponents")
                         .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("FacilityUser");
@@ -1401,13 +1401,13 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Question", "Question")
                         .WithMany("SessionComponents")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.SessionDetails.GapAnalysisSession", "GapAnalysisSession")
                         .WithMany("SessionComponents")
                         .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("GapAnalysisSession");
@@ -1581,6 +1581,11 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.Navigation("SubscriptionPlanFeatures");
 
                     b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("AccrediGo.Domain.Entities.UserDetails.FacilityUser", b =>
+                {
+                    b.Navigation("ActionPlanComponents");
                 });
 
             modelBuilder.Entity("AccrediGo.Domain.Entities.UserDetails.User", b =>
