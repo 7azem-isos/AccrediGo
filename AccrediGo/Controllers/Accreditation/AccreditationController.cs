@@ -52,10 +52,10 @@ namespace AccrediGo.API.Controllers.Accreditation
                 var result = await _mediator.Send(query);
 
                 var paginatedResponse = PaginatedResponse<GetAllAccreditationsDto>.Success(
-                    result.ToList(),
-                    100, // Total count - would come from actual implementation
-                    1,   // Page number
-                    10,  // Page size
+                    result.Result.ToList(),
+                    result.TotalItemsCount,
+                    query.PageNumber,
+                    query.PageSize,
                     "Accreditations retrieved successfully"
                 );
 
