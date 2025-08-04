@@ -5,7 +5,6 @@ using AccrediGo.Domain.Entities.MainComponents;
 using AccrediGo.Domain.Entities.Roles;
 using AccrediGo.Domain.Entities.SessionDetails;
 using AccrediGo.Domain.Entities.UserDetails;
-using AccrediGo.Domain.Entities;
 
 namespace AccrediGo.Infrastructure.Data
 {
