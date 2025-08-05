@@ -57,7 +57,11 @@ namespace AccrediGo
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             // Register AutoMapper - scan all assemblies for profiles
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(cfg => 
+            {
+                cfg.AddMaps(typeof(Program).Assembly);
+                cfg.AddMaps(typeof(CreateSubscriptionPlanCommand).Assembly);
+            });
 
             // Register MediatR - scan all assemblies for handlers
             builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
@@ -80,7 +84,32 @@ namespace AccrediGo
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\nExample: 'Bearer 12345abcdef'"
+                });
+                options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
+                    {
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        {
+                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            {
+                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
 
             var app = builder.Build();
 
