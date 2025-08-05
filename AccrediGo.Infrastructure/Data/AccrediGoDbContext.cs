@@ -76,13 +76,13 @@ namespace AccrediGo.Infrastructure.Data
             modelBuilder.Entity<Subscription>()
                 .HasOne(s => s.Facility)
                 .WithMany(f => f.Subscriptions)
-                .HasForeignKey(s => s.FacilityID)
+                .HasForeignKey(s => s.FacilityUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Payment>()
                 .HasOne(p => p.Facility)
                 .WithMany(f => f.Payments)
-                .HasForeignKey(p => p.FacilityID)
+                .HasForeignKey(p => p.FacilityUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SessionComponent>()
@@ -116,6 +116,13 @@ namespace AccrediGo.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Restrict); // or DeleteBehavior.NoAction
 
             // MainComponents configurations
+            // One-to-one relationship between User and Facility
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Facility)
+                .WithOne(f => f.User)
+                .HasForeignKey<Facility>(f => f.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<AnswerOption>()
                 .HasOne(ao => ao.ImprovementScenario)
                 .WithOne(improvementScenario => improvementScenario.AnswerOption)
@@ -148,13 +155,19 @@ namespace AccrediGo.Infrastructure.Data
                 .IsUnique();
 
             modelBuilder.Entity<FacilityUser>()
-                .HasIndex(fu => fu.FacilityID);
+                .HasIndex(fu => fu.FacilityUserId);
 
             modelBuilder.Entity<Subscription>()
-                .HasIndex(s => s.FacilityID);
+                .HasIndex(s => s.FacilityUserId);
 
             modelBuilder.Entity<Payment>()
                 .HasIndex(p => p.SubscriptionID);
+
+            modelBuilder.Entity<FacilityUser>()
+                .HasOne(fu => fu.Facility)
+                .WithMany(f => f.FacilityUsers)
+                .HasForeignKey(fu => fu.FacilityUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

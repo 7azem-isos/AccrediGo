@@ -20,10 +20,16 @@ namespace AccrediGo.Domain.Entities.MainComponents
     public class Facility : BaseEntity
     {
         /// <summary>
-        /// The unique identifier for the facility.
+        /// The unique identifier for the facility, which is also the UserId.
         /// </summary>
         [Key]
-        public string Id { get; set; } = null!;
+        [ForeignKey("User")]
+        public string UserId { get; set; } = null!;
+
+        /// <summary>
+        /// Navigation property for the related user.
+        /// </summary>
+        public User User { get; set; } = null!;
 
         /// <summary>
         /// The name of the facility in English.

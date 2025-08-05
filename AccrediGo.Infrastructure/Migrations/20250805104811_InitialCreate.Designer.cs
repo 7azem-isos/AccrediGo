@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccrediGo.Infrastructure.Migrations
 {
     [DbContext(typeof(AccrediGoDbContext))]
-    [Migration("20250803084614_InitialCreate")]
+    [Migration("20250805104811_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -78,7 +78,7 @@ namespace AccrediGo.Infrastructure.Migrations
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
 
-                    b.Property<string>("FacilityID")
+                    b.Property<string>("FacilityUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -108,7 +108,7 @@ namespace AccrediGo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityID");
+                    b.HasIndex("FacilityUserId");
 
                     b.HasIndex("SubscriptionID");
 
@@ -132,7 +132,7 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.Property<DateTime>("Expiry")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FacilityID")
+                    b.Property<string>("FacilityUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -157,11 +157,44 @@ namespace AccrediGo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityID");
+                    b.HasIndex("FacilityUserId");
 
                     b.HasIndex("PlanID");
 
                     b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Pricing")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubscriptionPlans");
                 });
 
             modelBuilder.Entity("AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlanFeature", b =>
@@ -418,7 +451,7 @@ namespace AccrediGo.Infrastructure.Migrations
 
             modelBuilder.Entity("AccrediGo.Domain.Entities.MainComponents.Facility", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AccreditationId")
@@ -475,7 +508,7 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("AccreditationId");
 
@@ -889,7 +922,7 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.Property<DateTime?>("End")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FacilityId")
+                    b.Property<string>("FacilityUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -907,7 +940,7 @@ namespace AccrediGo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacilityId");
+                    b.HasIndex("FacilityUserId");
 
                     b.ToTable("GapAnalysisSessions");
                 });
@@ -959,39 +992,6 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.ToTable("SessionComponents");
                 });
 
-            modelBuilder.Entity("AccrediGo.Domain.Entities.SubscriptionPlan", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Pricing")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SubscriptionPlans");
-                });
-
             modelBuilder.Entity("AccrediGo.Domain.Entities.UserDetails.ExploreUserAccess", b =>
                 {
                     b.Property<string>("UserID")
@@ -1034,12 +1034,12 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FacilityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("FacilityRoleID")
                         .HasColumnType("int");
+
+                    b.Property<string>("FacilityUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1052,9 +1052,9 @@ namespace AccrediGo.Infrastructure.Migrations
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("FacilityID");
-
                     b.HasIndex("FacilityRoleID");
+
+                    b.HasIndex("FacilityUserId");
 
                     b.ToTable("FacilityUsers");
                 });
@@ -1162,7 +1162,7 @@ namespace AccrediGo.Infrastructure.Migrations
                 {
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
                         .WithMany("Payments")
-                        .HasForeignKey("FacilityID")
+                        .HasForeignKey("FacilityUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1181,11 +1181,11 @@ namespace AccrediGo.Infrastructure.Migrations
                 {
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("FacilityID")
+                        .HasForeignKey("FacilityUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("AccrediGo.Domain.Entities.SubscriptionPlan", "SubscriptionPlan")
+                    b.HasOne("AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan", "SubscriptionPlan")
                         .WithMany("Subscriptions")
                         .HasForeignKey("PlanID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1204,7 +1204,7 @@ namespace AccrediGo.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("AccrediGo.Domain.Entities.SubscriptionPlan", "SubscriptionPlan")
+                    b.HasOne("AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan", "SubscriptionPlan")
                         .WithMany("SubscriptionPlanFeatures")
                         .HasForeignKey("SubscriptionPlanID")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1278,9 +1278,17 @@ namespace AccrediGo.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AccrediGo.Domain.Entities.UserDetails.User", "User")
+                        .WithOne("Facility")
+                        .HasForeignKey("AccrediGo.Domain.Entities.MainComponents.Facility", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Accreditation");
 
                     b.Navigation("FacilityType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AccrediGo.Domain.Entities.MainComponents.ImprovementScenario", b =>
@@ -1392,7 +1400,7 @@ namespace AccrediGo.Infrastructure.Migrations
                 {
                     b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
                         .WithMany("GapAnalysisSessions")
-                        .HasForeignKey("FacilityId")
+                        .HasForeignKey("FacilityUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1431,16 +1439,16 @@ namespace AccrediGo.Infrastructure.Migrations
 
             modelBuilder.Entity("AccrediGo.Domain.Entities.UserDetails.FacilityUser", b =>
                 {
-                    b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
-                        .WithMany("FacilityUsers")
-                        .HasForeignKey("FacilityID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AccrediGo.Domain.Entities.Roles.FacilityRole", "FacilityRole")
                         .WithMany("FacilityUsers")
                         .HasForeignKey("FacilityRoleID")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AccrediGo.Domain.Entities.MainComponents.Facility", "Facility")
+                        .WithMany("FacilityUsers")
+                        .HasForeignKey("FacilityUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("AccrediGo.Domain.Entities.UserDetails.User", "User")
@@ -1486,6 +1494,13 @@ namespace AccrediGo.Infrastructure.Migrations
             modelBuilder.Entity("AccrediGo.Domain.Entities.BillingDetails.Subscription", b =>
                 {
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan", b =>
+                {
+                    b.Navigation("SubscriptionPlanFeatures");
+
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("AccrediGo.Domain.Entities.MainComponents.Accreditation", b =>
@@ -1579,13 +1594,6 @@ namespace AccrediGo.Infrastructure.Migrations
                     b.Navigation("SessionComponents");
                 });
 
-            modelBuilder.Entity("AccrediGo.Domain.Entities.SubscriptionPlan", b =>
-                {
-                    b.Navigation("SubscriptionPlanFeatures");
-
-                    b.Navigation("Subscriptions");
-                });
-
             modelBuilder.Entity("AccrediGo.Domain.Entities.UserDetails.FacilityUser", b =>
                 {
                     b.Navigation("ActionPlanComponents");
@@ -1594,6 +1602,8 @@ namespace AccrediGo.Infrastructure.Migrations
             modelBuilder.Entity("AccrediGo.Domain.Entities.UserDetails.User", b =>
                 {
                     b.Navigation("ExploreUserAccess");
+
+                    b.Navigation("Facility");
 
                     b.Navigation("FacilityUser");
 

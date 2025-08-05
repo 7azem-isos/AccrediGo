@@ -18,6 +18,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.UpdateUser
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateUserCommand, User>();
+            profile.CreateMap<User, UpdateUserDto>();
         }
     }
 } 

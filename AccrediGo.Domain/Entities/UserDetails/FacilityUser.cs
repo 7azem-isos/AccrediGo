@@ -31,18 +31,18 @@ namespace AccrediGo.Domain.Entities.UserDetails
         public User User { get; set; } = null!;
 
         /// <summary>
-        /// The identifier of the facility this user is associated with.
+        /// The identifier of the facility this user is associated with (Facility.UserId).
+        /// <summary>
+        /// The identifier of the facility this user is associated with (Facility.UserId).
         /// </summary>
         [Required]
-        public string FacilityID { get; set; } = null!;
-
+        public string FacilityUserId { get; set; } = null!;
+        
         /// <summary>
         /// Navigation property for the related facility.
         /// </summary>
-        [ForeignKey("FacilityID")]
+        [ForeignKey("FacilityUserId")]
         public Facility Facility { get; set; } = null!;
-
-        /// <summary>
         /// The identifier of the role this user has within the facility.
         /// </summary>
         [Required]

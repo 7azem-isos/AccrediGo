@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AccrediGo.Domain.Entities.Roles;
 using AccrediGo.Domain.Entities.BaseModels;
+using AccrediGo.Domain.Entities.MainComponents;
 
 namespace AccrediGo.Domain.Entities.UserDetails
 {
@@ -67,6 +68,12 @@ namespace AccrediGo.Domain.Entities.UserDetails
         /// </summary>
         [MaxLength(20)]
         public string? PhoneNumber { get; set; }
+
+
+        /// <summary>
+        /// Navigation property for the related facility, if this user is a facility account.
+        /// </summary>
+        public Facility? Facility { get; set; }
 
         /// <summary>
         /// Navigation property for the related facility user, if any.

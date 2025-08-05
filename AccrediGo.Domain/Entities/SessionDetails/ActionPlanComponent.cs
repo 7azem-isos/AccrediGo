@@ -49,7 +49,7 @@ namespace AccrediGo.Domain.Entities.SessionDetails
         public ImprovementScenario ImprovementScenario { get; set; } = null!;
 
         /// <summary>
-        /// The identifier of the facility user assigned to this action plan component.
+        /// The identifier of the facility user assigned to this action plan component (FacilityUser.UserId).
         /// </summary>
         [Required]
         public string AssignedTo { get; set; } = null!;

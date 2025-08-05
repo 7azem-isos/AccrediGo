@@ -17,6 +17,7 @@ using AccrediGo.Application.Services;
 using AccrediGo.Models.Common;
 using AutoMapper;
 using AccrediGo.Infrastructure;
+using AccrediGo.Application.Common;
 
 namespace AccrediGo
 {
@@ -61,6 +62,7 @@ namespace AccrediGo
             {
                 cfg.AddMaps(typeof(Program).Assembly);
                 cfg.AddMaps(typeof(CreateSubscriptionPlanCommand).Assembly);
+                cfg.AddProfile<AutoMapperProfile>();
             });
 
             // Register MediatR - scan all assemblies for handlers

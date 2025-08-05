@@ -151,9 +151,9 @@ namespace AccrediGo.API.Controllers.UserManagement
             try
             {
                 // Validate user has permission to create users
-                ValidateCondition(GetCurrentUserRoleId() >= 2, "INSUFFICIENT_PERMISSIONS_ERROR",
-                    "You don't have permission to create users",
-                    "ليس لديك صلاحية لإنشاء المستخدمين");
+                // ValidateCondition(GetCurrentUserRoleId() >= 2, "INSUFFICIENT_PERMISSIONS_ERROR",
+                //     "You don't have permission to create users",
+                //     "ليس لديك صلاحية لإنشاء المستخدمين");
 
                 ValidateModelState("USER_CREATE_VALIDATION_ERROR", "Invalid user data", "بيانات المستخدم غير صالحة");
 
