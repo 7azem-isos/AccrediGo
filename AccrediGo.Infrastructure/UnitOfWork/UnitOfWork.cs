@@ -17,10 +17,9 @@ namespace AccrediGo.Infrastructure.UnitOfWork
     {
         private readonly AccrediGoDbContext _context;
         private readonly IMapper _mapper;
-        private IGenericRepository<SubscriptionPlan> _subscriptionPlanRepository;
-        private IGenericRepository<User> _userRepository;
-        private IGenericRepository<Accreditation> _accreditationRepository;
+        private readonly Dictionary<Type, object> _repositories = new();
         private bool _disposed = false;
+
 
         public UnitOfWork(AccrediGoDbContext context, IMapper mapper)
         {
@@ -28,19 +27,12 @@ namespace AccrediGo.Infrastructure.UnitOfWork
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public IGenericRepository<SubscriptionPlan> SubscriptionPlanRepository
+        public IGenericRepository<T> GetRepository<T>() where T : class
         {
-            get { return _subscriptionPlanRepository ??= new GenericRepository<SubscriptionPlan>(_context, _mapper); }
-        }
-
-        public IGenericRepository<User> UserRepository
-        {
-            get { return _userRepository ??= new GenericRepository<User>(_context, _mapper); }
-        }
-
-        public IGenericRepository<Accreditation> AccreditationRepository
-        {
-            get { return _accreditationRepository ??= new GenericRepository<Accreditation>(_context, _mapper); }
+            var type = typeof(T);
+            if (!_repositories.ContainsKey(type))
+                _repositories[type] = new GenericRepository<T>(_context, _mapper);
+            return (IGenericRepository<T>)_repositories[type];
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

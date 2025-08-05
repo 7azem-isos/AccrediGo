@@ -184,7 +184,8 @@ namespace AccrediGo
                     ValidateAudience = true,
                     ValidAudience = jwtSettings.Audience,
                     ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
+                    ClockSkew = TimeSpan.Zero,
+                    RoleClaimType = System.Security.Claims.ClaimTypes.Role // Ensure role claim is mapped for [Authorize(Roles = ...)]
                 };
             });
 

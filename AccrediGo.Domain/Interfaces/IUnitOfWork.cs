@@ -11,9 +11,7 @@ namespace AccrediGo.Domain.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<SubscriptionPlan> SubscriptionPlanRepository { get; }
-        IGenericRepository<User> UserRepository { get; }
-        IGenericRepository<Accreditation> AccreditationRepository { get; }
+        IGenericRepository<T> GetRepository<T>() where T : class;
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

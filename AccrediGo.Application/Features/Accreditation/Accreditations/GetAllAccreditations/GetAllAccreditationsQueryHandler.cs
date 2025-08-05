@@ -64,7 +64,7 @@ namespace AccrediGo.Application.Features.Accreditation.Accreditations.GetAllAccr
                 };
 
                 // Use GenericRepository's GetPagedAsync method for advanced functionality
-                var (accreditations, totalCount) = await _unitOfWork.AccreditationRepository.GetPagedAsync(
+                var (accreditations, totalCount) = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.MainComponents.Accreditation>().GetPagedAsync(
                     pageNumber: request.PageNumber,
                     pageSize: request.PageSize,
                     predicate: predicate,
