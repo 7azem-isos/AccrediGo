@@ -1,8 +1,9 @@
 using AccrediGo.Application.Interfaces;
+using AutoMapper;
 
 namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.CreateSubscriptionPlan
 {
-    public class CreateSubscriptionPlanCommand : ICreateCommand<CreateSubscriptionPlanDto>
+    public class CreateSubscriptionPlanCommand : ICreateCommand<CreateSubscriptionPlanDto>, IMapTo<AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,6 +21,12 @@ namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.Create
         public CreateSubscriptionPlanCommand()
         {
             CreatedAt = DateTime.UtcNow;
+        }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<CreateSubscriptionPlanCommand, AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan>();
+            profile.CreateMap<AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan, CreateSubscriptionPlanDto>();
         }
     }
 } 

@@ -24,15 +24,15 @@ namespace AccrediGo.Domain.Entities.BillingDetails
         public string Id { get; set; } = null!;
 
         /// <summary>
-        /// The identifier of the facility associated with this subscription.
+        /// The identifier of the facility associated with this subscription (Facility.UserId).
         /// </summary>
         [Required]
-        public string FacilityID { get; set; } = null!;
+        public string FacilityUserId { get; set; } = null!;
 
         /// <summary>
         /// Navigation property for the related facility.
         /// </summary>
-        [ForeignKey("FacilityID")]
+        [ForeignKey("FacilityUserId")]
         public Facility Facility { get; set; } = null!;
 
         /// <summary>

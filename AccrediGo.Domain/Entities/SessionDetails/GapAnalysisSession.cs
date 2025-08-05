@@ -23,15 +23,15 @@ namespace AccrediGo.Domain.Entities.SessionDetails
         public string Id { get; set; } = null!;
 
         /// <summary>
-        /// The identifier of the facility this session is associated with.
+        /// The identifier of the facility this session is associated with (Facility.UserId).
         /// </summary>
         [Required]
-        public string FacilityId { get; set; } = null!;
+        public string FacilityUserId { get; set; } = null!;
 
         /// <summary>
         /// Navigation property for the related facility.
         /// </summary>
-        [ForeignKey("FacilityId")]
+        [ForeignKey("FacilityUserId")]
         public Facility Facility { get; set; } = null!;
 
         /// <summary>

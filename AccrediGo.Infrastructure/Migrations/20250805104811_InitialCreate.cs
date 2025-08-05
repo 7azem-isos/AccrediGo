@@ -198,44 +198,6 @@ namespace AccrediGo.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Facilities",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ArabicName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    ArabicLocation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CompanySize = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Tel = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    AccreditationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FacilityTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Facilities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Facilities_Accreditations_AccreditationId",
-                        column: x => x.AccreditationId,
-                        principalTable: "Accreditations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Facilities_FacilityTypes_FacilityTypeId",
-                        column: x => x.FacilityTypeId,
-                        principalTable: "FacilityTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FacilityRolePermissions",
                 columns: table => new
                 {
@@ -382,65 +344,6 @@ namespace AccrediGo.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GapAnalysisSessions",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FacilityId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GapAnalysisSessions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GapAnalysisSessions_Facilities_FacilityId",
-                        column: x => x.FacilityId,
-                        principalTable: "Facilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Subscriptions",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FacilityID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PlanID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Expiry = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Subscriptions_Facilities_FacilityID",
-                        column: x => x.FacilityID,
-                        principalTable: "Facilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Subscriptions_SubscriptionPlans_PlanID",
-                        column: x => x.PlanID,
-                        principalTable: "SubscriptionPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ExploreUserAccess",
                 columns: table => new
                 {
@@ -465,12 +368,20 @@ namespace AccrediGo.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FacilityUsers",
+                name: "Facilities",
                 columns: table => new
                 {
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FacilityID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FacilityRoleID = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ArabicName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    ArabicLocation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    CompanySize = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Tel = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    AccreditationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FacilityTypeId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -479,22 +390,22 @@ namespace AccrediGo.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FacilityUsers", x => x.UserID);
+                    table.PrimaryKey("PK_Facilities", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_FacilityUsers_Facilities_FacilityID",
-                        column: x => x.FacilityID,
-                        principalTable: "Facilities",
+                        name: "FK_Facilities_Accreditations_AccreditationId",
+                        column: x => x.AccreditationId,
+                        principalTable: "Accreditations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Facilities_FacilityTypes_FacilityTypeId",
+                        column: x => x.FacilityTypeId,
+                        principalTable: "FacilityTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FacilityUsers_FacilityRoles_FacilityRoleID",
-                        column: x => x.FacilityRoleID,
-                        principalTable: "FacilityRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FacilityUsers_Users_UserID",
-                        column: x => x.UserID,
+                        name: "FK_Facilities_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -554,17 +465,12 @@ namespace AccrediGo.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "FacilityUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FacilityID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SubscriptionID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Method = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Currency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FacilityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FacilityRoleID = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -573,17 +479,82 @@ namespace AccrediGo.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.PrimaryKey("PK_FacilityUsers", x => x.UserID);
                     table.ForeignKey(
-                        name: "FK_Payments_Facilities_FacilityID",
-                        column: x => x.FacilityID,
+                        name: "FK_FacilityUsers_Facilities_FacilityUserId",
+                        column: x => x.FacilityUserId,
                         principalTable: "Facilities",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Payments_Subscriptions_SubscriptionID",
-                        column: x => x.SubscriptionID,
-                        principalTable: "Subscriptions",
+                        name: "FK_FacilityUsers_FacilityRoles_FacilityRoleID",
+                        column: x => x.FacilityRoleID,
+                        principalTable: "FacilityRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FacilityUsers_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GapAnalysisSessions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FacilityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    End = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GapAnalysisSessions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GapAnalysisSessions_Facilities_FacilityUserId",
+                        column: x => x.FacilityUserId,
+                        principalTable: "Facilities",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FacilityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PlanID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Expiry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Facilities_FacilityUserId",
+                        column: x => x.FacilityUserId,
+                        principalTable: "Facilities",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_SubscriptionPlans_PlanID",
+                        column: x => x.PlanID,
+                        principalTable: "SubscriptionPlans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -619,6 +590,41 @@ namespace AccrediGo.Infrastructure.Migrations
                         column: x => x.DependsOnQuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FacilityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SubscriptionID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Method = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Facilities_FacilityUserId",
+                        column: x => x.FacilityUserId,
+                        principalTable: "Facilities",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Subscriptions_SubscriptionID",
+                        column: x => x.SubscriptionID,
+                        principalTable: "Subscriptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -798,19 +804,19 @@ namespace AccrediGo.Infrastructure.Migrations
                 column: "PermissionID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FacilityUsers_FacilityID",
-                table: "FacilityUsers",
-                column: "FacilityID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FacilityUsers_FacilityRoleID",
                 table: "FacilityUsers",
                 column: "FacilityRoleID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GapAnalysisSessions_FacilityId",
+                name: "IX_FacilityUsers_FacilityUserId",
+                table: "FacilityUsers",
+                column: "FacilityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GapAnalysisSessions_FacilityUserId",
                 table: "GapAnalysisSessions",
-                column: "FacilityId");
+                column: "FacilityUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImprovementScenarios_AnswerOptionId",
@@ -819,9 +825,9 @@ namespace AccrediGo.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_FacilityID",
+                name: "IX_Payments_FacilityUserId",
                 table: "Payments",
-                column: "FacilityID");
+                column: "FacilityUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_SubscriptionID",
@@ -864,9 +870,9 @@ namespace AccrediGo.Infrastructure.Migrations
                 column: "SubscriptionPlanID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscriptions_FacilityID",
+                name: "IX_Subscriptions_FacilityUserId",
                 table: "Subscriptions",
-                column: "FacilityID");
+                column: "FacilityUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_PlanID",
@@ -944,9 +950,6 @@ namespace AccrediGo.Infrastructure.Migrations
                 name: "FacilityRoles");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "AnswerOptions");
 
             migrationBuilder.DropTable(
@@ -956,13 +959,16 @@ namespace AccrediGo.Infrastructure.Migrations
                 name: "Facilities");
 
             migrationBuilder.DropTable(
-                name: "SystemRoles");
-
-            migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "EoCs");
+
+            migrationBuilder.DropTable(
+                name: "SystemRoles");
 
             migrationBuilder.DropTable(
                 name: "Standards");

@@ -1,8 +1,9 @@
 using AccrediGo.Application.Interfaces;
+using AutoMapper;
 
 namespace AccrediGo.Application.Features.Accreditation.Accreditations.CreateAccreditation
 {
-    public class CreateAccreditationCommand : ICreateCommand<CreateAccreditationDto>
+    public class CreateAccreditationCommand : ICreateCommand<CreateAccreditationDto>, IMapTo<AccrediGo.Domain.Entities.MainComponents.Accreditation>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -21,6 +22,12 @@ namespace AccrediGo.Application.Features.Accreditation.Accreditations.CreateAccr
         public CreateAccreditationCommand()
         {
             CreatedAt = DateTime.UtcNow;
+        }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<CreateAccreditationCommand, AccrediGo.Domain.Entities.MainComponents.Accreditation>();
+            profile.CreateMap<AccrediGo.Domain.Entities.MainComponents.Accreditation, CreateAccreditationDto>();
         }
     }
 } 

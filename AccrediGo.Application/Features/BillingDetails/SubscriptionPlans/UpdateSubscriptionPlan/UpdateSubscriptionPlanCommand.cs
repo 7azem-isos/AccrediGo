@@ -15,6 +15,7 @@ namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.Update
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateSubscriptionPlanCommand, SubscriptionPlan>();
+            profile.CreateMap<SubscriptionPlan, UpdateSubscriptionPlanDto>();
         }
     }
 } 
