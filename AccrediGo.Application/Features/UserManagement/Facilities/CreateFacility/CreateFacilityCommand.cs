@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
 using AccrediGo.Application.Interfaces;
 using AutoMapper;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacility
 {
@@ -25,9 +27,15 @@ public class CreateFacilityCommand : IRequest<CreateFacilityDto>, IMapTo<Accredi
         // Audit fields
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        // public string CreatedFromIp { get; set; } = string.Empty;
-        // public string UserAgent { get; set; } = string.Empty;
-        // public string AuditContext { get; set; } = string.Empty;
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string CreatedFromIp { get; set; } = string.Empty;
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string UserAgent { get; set; } = string.Empty;
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string AuditContext { get; set; } = string.Empty;
 
         public void Mapping(Profile profile)
         {

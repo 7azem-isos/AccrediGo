@@ -1,5 +1,5 @@
 using MediatR;
-
+using AccrediGo.Domain.Interfaces;
 namespace AccrediGo.Application.Interfaces
 {
     /// <summary>

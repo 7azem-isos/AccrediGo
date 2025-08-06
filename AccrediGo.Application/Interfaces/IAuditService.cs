@@ -1,4 +1,5 @@
 using System;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.Application.Interfaces
 {
