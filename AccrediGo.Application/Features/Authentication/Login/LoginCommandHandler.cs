@@ -30,9 +30,8 @@ namespace AccrediGo.Application.Features.Authentication.Login
                 throw new UnauthorizedAccessException("Invalid email or password");
             }
 
-            // In a real application, you would hash and compare passwords
-            // For now, we'll do a simple comparison
-            if (user.Password != request.Password)
+            // Use PasswordHasher to verify hashed password
+            if (!AccrediGo.Application.Common.PasswordHasher.VerifyPassword(request.Password ?? string.Empty, user.Password))
             {
                 throw new UnauthorizedAccessException("Invalid email or password");
             }
