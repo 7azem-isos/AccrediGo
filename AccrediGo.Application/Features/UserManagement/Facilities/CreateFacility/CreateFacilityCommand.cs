@@ -1,12 +1,13 @@
 using System.Text.Json.Serialization;
 using AccrediGo.Application.Interfaces;
+using AccrediGo.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacility
 {
-public class CreateFacilityCommand : IRequest<CreateFacilityDto>, IMapTo<AccrediGo.Domain.Entities.MainComponents.Facility>
+public class CreateFacilityCommand : IRequest<CreateFacilityDto>, IMapTo<AccrediGo.Domain.Entities.MainComponents.Facility>, IAuditableCommand
     {
         // User fields
         public string Name { get; set; } = string.Empty;
