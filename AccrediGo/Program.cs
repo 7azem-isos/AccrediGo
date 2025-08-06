@@ -88,6 +88,15 @@ namespace AccrediGo
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
+                // Configure OpenAPI document info with proper version (must be first)
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "AccrediGo API",
+                    Version = "v1",
+                    Description = "AccrediGo API for Accreditation Management System"
+                });
+                
+                // Configure JWT Bearer token authentication
                 options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -97,6 +106,7 @@ namespace AccrediGo
                     In = Microsoft.OpenApi.Models.ParameterLocation.Header,
                     Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\nExample: 'Bearer 12345abcdef'"
                 });
+                
                 options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
                 {
                     {
@@ -198,7 +208,11 @@ namespace AccrediGo
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AccrediGo API v1");
+                    c.RoutePrefix = "swagger";
+                });
                 
                 // Development: More detailed error pages
                 app.UseDeveloperExceptionPage();
@@ -209,7 +223,11 @@ namespace AccrediGo
             else if (app.Environment.IsStaging())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AccrediGo API v1");
+                    c.RoutePrefix = "swagger";
+                });
                 
                 // Staging: Custom error handling
                 app.UseExceptionHandler("/Error");

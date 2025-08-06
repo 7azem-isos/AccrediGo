@@ -46,8 +46,8 @@ namespace AccrediGo.Application.Features.UserManagement.ExploreUsers.CreateExplo
                 SystemRoleId = request.SystemRoleId,
                 CreatedAt = request.CreatedAt,
                 CreatedBy = request.CreatedBy,
-                // UserAgent = request.UserAgent,
-                // CreatedFromIp = request.CreatedFromIp
+                UserAgent = request.UserAgent,
+                CreatedFromIp = request.CreatedFromIp
             };
             await _unitOfWork.GetRepository<User>().AddAsync(user, cancellationToken);
 
@@ -57,8 +57,8 @@ namespace AccrediGo.Application.Features.UserManagement.ExploreUsers.CreateExplo
                 UserID = user.Id,
                 CreatedAt = request.CreatedAt,
                 CreatedBy = request.CreatedBy,
-                // UserAgent = request.UserAgent,
-                // CreatedFromIp = request.CreatedFromIp
+                UserAgent = request.UserAgent,
+                CreatedFromIp = request.CreatedFromIp
             };
             await _unitOfWork.GetRepository<ExploreUserAccess>().AddAsync(exploreUserAccess, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

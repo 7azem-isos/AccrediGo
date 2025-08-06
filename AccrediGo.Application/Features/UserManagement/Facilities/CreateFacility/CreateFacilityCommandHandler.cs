@@ -49,6 +49,9 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
                 SystemRoleId = request.SystemRoleId,
                 CreatedAt = request.CreatedAt,
                 CreatedBy = request.CreatedBy,
+                UserAgent = request.UserAgent,
+                CreatedFromIp = request.CreatedFromIp,
+                AuditContext = request.AuditContext
             };
             await _unitOfWork.GetRepository<User>().AddAsync(user, cancellationToken);
 
@@ -67,9 +70,10 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
                 Tel = request.Tel,
                 CompanySize = (CompanySize)request.CompanySize,
                 CreatedAt = request.CreatedAt,
-                CreatedBy = request.CreatedBy
-                // UserAgent = request.UserAgent,
-                // CreatedFromIp = request.CreatedFromIp
+                CreatedBy = request.CreatedBy,
+                UserAgent = request.UserAgent,
+                CreatedFromIp = request.CreatedFromIp,
+                AuditContext = request.AuditContext
             };
             await _unitOfWork.GetRepository<Facility>().AddAsync(facility, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

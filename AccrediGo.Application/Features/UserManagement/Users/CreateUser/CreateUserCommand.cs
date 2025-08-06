@@ -1,10 +1,13 @@
 
+using System.Text.Json.Serialization;
 using AccrediGo.Application.Interfaces;
+using AccrediGo.Domain.Interfaces;
 using AutoMapper;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AccrediGo.Application.Features.UserManagement.Users.CreateUser
 {
-public class CreateUserCommand : ICreateCommand<CreateUserDto>, IMapTo<AccrediGo.Domain.Entities.UserDetails.User>
+public class CreateUserCommand : ICreateCommand<CreateUserDto>, IMapTo<AccrediGo.Domain.Entities.UserDetails.User>, IAuditableCommand
     {
 
         public string? Name { get; set; }
@@ -17,8 +20,12 @@ public class CreateUserCommand : ICreateCommand<CreateUserDto>, IMapTo<AccrediGo
         // Audit properties (implemented from IAuditableCommand)
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
-        // public string CreatedFromIp { get; set; } = string.Empty;
-        // public string UserAgent { get; set; } = string.Empty;
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string CreatedFromIp { get; set; } = string.Empty;
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string UserAgent { get; set; } = string.Empty;
         public string AuditContext { get; set; } = string.Empty;
 
         public CreateUserCommand()

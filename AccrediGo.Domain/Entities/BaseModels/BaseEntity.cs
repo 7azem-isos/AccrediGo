@@ -3,43 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AccrediGo.Domain.Interfaces;
 
 namespace AccrediGo.Domain.Entities.BaseModels
 {
-    public abstract class BaseEntity
+
+
+    public abstract class BaseEntity : IAuditableCommand
     {
         /// <summary>
         /// The user agent string of the client that created the entity.
         /// </summary>
-        // public string? UserAgent { get; set; }
+        public string? UserAgent { get; set; }
 
         /// <summary>
         /// The IP address from which the entity was created.
         /// </summary>
-        // public string? CreatedFromIp { get; set; }
+        public string? CreatedFromIp { get; set; }
+
+        /// <summary>
+        /// Audit context for tracking additional info.
+        /// </summary>
+        public string AuditContext { get; set; } = string.Empty;
         /// <summary>
         /// The date and time when the entity was created.
         /// </summary>
+        public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
 
-        /// <summary>
-        /// The user who created the entity.
-        /// </summary>
-        public string? CreatedBy { get; set; }
-
-        /// <summary>
-        /// The date and time when the entity was last updated.
-        /// </summary>
         public DateTime UpdatedAt { get; set; }
-
-        /// <summary>
-        /// The user who last updated the entity.
-        /// </summary>
         public string? UpdatedBy { get; set; }
-
-        /// <summary>
-        /// Indicates whether the entity is soft-deleted.
-        /// </summary>
         public bool IsDeleted { get; set; } = false;
     }
 }

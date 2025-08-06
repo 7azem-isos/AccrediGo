@@ -1,5 +1,7 @@
+using System.Text.Json.Serialization;
 using AccrediGo.Application.Interfaces;
 using AutoMapper;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AccrediGo.Application.Features.Accreditation.Accreditations.CreateAccreditation
 {
@@ -15,8 +17,12 @@ namespace AccrediGo.Application.Features.Accreditation.Accreditations.CreateAccr
         // Audit properties (implemented from IAuditableCommand)
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
-        // public string CreatedFromIp { get; set; }
-        // public string UserAgent { get; set; }
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string CreatedFromIp { get; set; }
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public string UserAgent { get; set; }
         public string AuditContext { get; set; }
 
         public CreateAccreditationCommand()
