@@ -34,7 +34,7 @@ namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.Create
                 entity.CreatedAt = DateTime.UtcNow;
             }
 
-            await _unitOfWork.SubscriptionPlanRepository.AddAsync(entity);
+            await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan>().AddAsync(entity);
             await _unitOfWork.SaveChangesAsync();
 
             return _mapper.Map<CreateSubscriptionPlanDto>(entity);

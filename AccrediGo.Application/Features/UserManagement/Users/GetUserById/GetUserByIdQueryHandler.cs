@@ -21,7 +21,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.GetUserById
         public async Task<GetUserByIdDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             // Use CancellationToken in repository operations
-            var user = await _unitOfWork.UserRepository.GetByIdAsync(request.Id, cancellationToken);
+            var user = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().GetByIdAsync(request.Id, cancellationToken);
             
             if (user == null)
                 throw new ArgumentException($"User with ID {request.Id} not found");

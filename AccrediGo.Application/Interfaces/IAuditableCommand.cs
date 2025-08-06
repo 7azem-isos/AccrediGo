@@ -20,12 +20,12 @@ namespace AccrediGo.Application.Interfaces
         /// <summary>
         /// The IP address of the user who performed the action
         /// </summary>
-        string CreatedFromIp { get; set; }
+        // string CreatedFromIp { get; set; }
 
         /// <summary>
         /// The user agent/browser information
         /// </summary>
-        string UserAgent { get; set; }
+        // string UserAgent { get; set; }
 
         /// <summary>
         /// Additional context information for the audit

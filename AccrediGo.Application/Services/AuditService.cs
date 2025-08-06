@@ -37,12 +37,15 @@ namespace AccrediGo.Application.Services
 
                 command.CreatedBy = GetCurrentUserId();
                 command.CreatedAt = GetCurrentTimestamp();
-                command.CreatedFromIp = GetCurrentUserIp();
-                command.UserAgent = GetCurrentUserAgent();
-                command.AuditContext = $"User {command.CreatedBy} created from IP {command.CreatedFromIp}";
+                // command.CreatedFromIp = GetCurrentUserIp();
+                // command.UserAgent = GetCurrentUserAgent();
+                // command.AuditContext = $"User {command.CreatedBy} created from IP {command.CreatedFromIp}";
+                command.AuditContext = $"User {command.CreatedBy} created";
 
-                _logger.LogDebug("Populated audit info for command: CreatedBy={CreatedBy}, CreatedAt={CreatedAt}, CreatedFromIp={CreatedFromIp}", 
-                    command.CreatedBy, command.CreatedAt, command.CreatedFromIp);
+                // _logger.LogDebug("Populated audit info for command: CreatedBy={CreatedBy}, CreatedAt={CreatedAt}, CreatedFromIp={CreatedFromIp}", 
+                //     command.CreatedBy, command.CreatedAt, command.CreatedFromIp);
+                _logger.LogDebug("Populated audit info for command: CreatedBy={CreatedBy}, CreatedAt={CreatedAt}", 
+                    command.CreatedBy, command.CreatedAt);
             }
             catch (Exception ex)
             {

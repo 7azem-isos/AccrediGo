@@ -17,14 +17,14 @@ namespace AccrediGo.Application.Features.UserManagement.Users.DeleteUser
 
         public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _unitOfWork.UserRepository.GetByIdAsync(request.Id, cancellationToken);
+            var existingUser = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().GetByIdAsync(request.Id, cancellationToken);
             
             if (existingUser == null)
             {
                 throw new ArgumentException($"User with ID {request.Id} not found.");
             }
 
-            _unitOfWork.UserRepository.Remove(existingUser);
+            _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().Remove(existingUser);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return true;

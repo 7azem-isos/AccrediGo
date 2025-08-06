@@ -9,6 +9,15 @@ namespace AccrediGo.Domain.Entities.BaseModels
     public abstract class BaseEntity
     {
         /// <summary>
+        /// The user agent string of the client that created the entity.
+        /// </summary>
+        // public string? UserAgent { get; set; }
+
+        /// <summary>
+        /// The IP address from which the entity was created.
+        /// </summary>
+        // public string? CreatedFromIp { get; set; }
+        /// <summary>
         /// The date and time when the entity was created.
         /// </summary>
         public DateTime CreatedAt { get; set; }
@@ -32,6 +41,5 @@ namespace AccrediGo.Domain.Entities.BaseModels
         /// Indicates whether the entity is soft-deleted.
         /// </summary>
         public bool IsDeleted { get; set; } = false;
-
     }
 }

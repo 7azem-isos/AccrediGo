@@ -35,7 +35,7 @@ namespace AccrediGo.Application.Features.Accreditation.Accreditations.CreateAccr
                 entity.CreatedAt = DateTime.UtcNow;
             }
 
-            await _unitOfWork.AccreditationRepository.AddAsync(entity);
+            await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.MainComponents.Accreditation>().AddAsync(entity);
             await _unitOfWork.SaveChangesAsync();
 
             return _mapper.Map<CreateAccreditationDto>(entity);
