@@ -24,7 +24,7 @@ namespace AccrediGo.Application.Features.UserManagement.FacilityUsers.GetFacilit
         public async Task<GetFacilityUserDto> Handle(GetFacilityUserQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Retrieving facility user with UserId: {UserId}", request.UserId);
-            var facilityUser = await _unitOfWork.GetRepository<FacilityUser>().FirstOrDefaultAsync(fu => fu.UserId == request.UserId, cancellationToken);
+            var facilityUser = await _unitOfWork.GetRepository<FacilityUser>().FirstOrDefaultAsync(fu => fu.UserID == request.UserId, cancellationToken);
             if (facilityUser == null)
                 return null;
             return _mapper.Map<GetFacilityUserDto>(facilityUser);

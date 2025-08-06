@@ -22,19 +22,19 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
         public CreateFacilityCommandHandler(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IAuditService auditService,
+            // IAuditService auditService,
             ILogger<CreateFacilityCommandHandler> logger)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _auditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
+            // _auditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<CreateFacilityDto> Handle(CreateFacilityCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Handling CreateFacilityCommand. Facility: {Name}, Email: {Email}", request.Name, request.Email);
-            _auditService.PopulateAuditInfo(request);
+            // _auditService.PopulateAuditInfo(request);
 
             // Create User
             var user = new User
@@ -43,6 +43,7 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
                 Name = request.Name,
                 ArabicName = request.ArabicName,
                 Email = request.Email!,
+                Password = request.Password,
                 PhoneNumber = request.Phone,
                 SystemRoleId = request.SystemRoleId,
                 CreatedAt = request.CreatedAt,
@@ -65,9 +66,9 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
                 Tel = request.Tel,
                 CompanySize = (CompanySize)request.CompanySize,
                 CreatedAt = request.CreatedAt,
-                CreatedBy = request.CreatedBy,
-                UserAgent = request.UserAgent,
-                CreatedFromIp = request.CreatedFromIp
+                CreatedBy = request.CreatedBy
+                // UserAgent = request.UserAgent,
+                // CreatedFromIp = request.CreatedFromIp
             };
             await _unitOfWork.GetRepository<Facility>().AddAsync(facility, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -14,8 +14,8 @@ namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.Create
         // Audit properties (implemented from IAuditableCommand)
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string CreatedFromIp { get; set; }
-        public string UserAgent { get; set; }
+        // public string CreatedFromIp { get; set; }
+        // public string UserAgent { get; set; }
         public string AuditContext { get; set; }
 
         public CreateSubscriptionPlanCommand()

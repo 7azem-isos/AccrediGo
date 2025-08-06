@@ -17,8 +17,8 @@ public class CreateUserCommand : ICreateCommand<CreateUserDto>, IMapTo<AccrediGo
         // Audit properties (implemented from IAuditableCommand)
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
-        public string CreatedFromIp { get; set; } = string.Empty;
-        public string UserAgent { get; set; } = string.Empty;
+        // public string CreatedFromIp { get; set; } = string.Empty;
+        // public string UserAgent { get; set; } = string.Empty;
         public string AuditContext { get; set; } = string.Empty;
 
         public CreateUserCommand()

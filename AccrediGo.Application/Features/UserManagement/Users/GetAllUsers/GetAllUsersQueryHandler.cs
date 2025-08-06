@@ -50,7 +50,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.GetAllUsers
                 var ascending = request.SortDirection?.ToLower() != "desc";
 
                 // Get paginated results using repository
-                var (users, totalCount) = await _unitOfWork.UserRepository.GetPagedAsync(
+                var (users, totalCount) = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().GetPagedAsync(
                     request.PageNumber,
                     request.PageSize,
                     predicate,

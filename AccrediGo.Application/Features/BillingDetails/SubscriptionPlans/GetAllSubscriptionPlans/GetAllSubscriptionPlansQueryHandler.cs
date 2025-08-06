@@ -22,7 +22,7 @@ namespace AccrediGo.Application.Features.BillingDetails.SubscriptionPlans.GetAll
 
         public async Task<IEnumerable<GetAllSubscriptionPlansDto>> Handle(GetAllSubscriptionPlansQuery request, CancellationToken cancellationToken)
         {
-            var subscriptionPlans = await _unitOfWork.SubscriptionPlanRepository.GetAllAsync(cancellationToken);
+            var subscriptionPlans = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.BillingDetails.SubscriptionPlan>().GetAllAsync(cancellationToken);
             return _mapper.Map<IEnumerable<GetAllSubscriptionPlansDto>>(subscriptionPlans);
         }
     }

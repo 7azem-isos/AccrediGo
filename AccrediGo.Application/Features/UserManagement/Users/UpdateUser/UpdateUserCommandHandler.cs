@@ -20,7 +20,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.UpdateUser
 
         public async Task<UpdateUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _unitOfWork.UserRepository.GetByIdAsync(request.Id, cancellationToken);
+            var existingUser = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().GetByIdAsync(request.Id, cancellationToken);
             
             if (existingUser == null)
             {
@@ -38,7 +38,7 @@ namespace AccrediGo.Application.Features.UserManagement.Users.UpdateUser
                 entity.Password = existingUser.Password;
             }
 
-            _unitOfWork.UserRepository.Update(entity);
+            _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().Update(entity);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<UpdateUserDto>(entity);

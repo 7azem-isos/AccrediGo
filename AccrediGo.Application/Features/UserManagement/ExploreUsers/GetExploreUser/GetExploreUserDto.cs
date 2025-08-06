@@ -8,7 +8,7 @@ namespace AccrediGo.Application.Features.UserManagement.ExploreUsers.GetExploreU
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public int SystemRoleId { get; set; } = 3;
-        public string? UserAgent { get; set; }
-        public string? CreatedFromIp { get; set; }
+        // public string? UserAgent { get; set; }
+        // public string? CreatedFromIp { get; set; }
     }
 }

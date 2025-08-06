@@ -4,12 +4,13 @@ using MediatR;
 
 namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacility
 {
-public class CreateFacilityCommand : IRequest<CreateFacilityDto>, IMapTo<AccrediGo.Domain.Entities.MainComponents.Facility>, IAuditableCommand
+public class CreateFacilityCommand : IRequest<CreateFacilityDto>, IMapTo<AccrediGo.Domain.Entities.MainComponents.Facility>
     {
         // User fields
         public string Name { get; set; } = string.Empty;
         public string? ArabicName { get; set; }
         public string? Email { get; set; }
+        public string? Password { get; set; }
         public string? Phone { get; set; }
         public string? Tel { get; set; }
         public int SystemRoleId { get; set; } = 1; // Facility role
@@ -24,9 +25,9 @@ public class CreateFacilityCommand : IRequest<CreateFacilityDto>, IMapTo<Accredi
         // Audit fields
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public string CreatedFromIp { get; set; } = string.Empty;
-        public string UserAgent { get; set; } = string.Empty;
-        public string AuditContext { get; set; } = string.Empty;
+        // public string CreatedFromIp { get; set; } = string.Empty;
+        // public string UserAgent { get; set; } = string.Empty;
+        // public string AuditContext { get; set; } = string.Empty;
 
         public void Mapping(Profile profile)
         {

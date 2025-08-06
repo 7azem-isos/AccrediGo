@@ -11,12 +11,12 @@ namespace AccrediGo.Domain.Entities.BaseModels
         /// <summary>
         /// The user agent string of the client that created the entity.
         /// </summary>
-        public string? UserAgent { get; set; }
+        // public string? UserAgent { get; set; }
 
         /// <summary>
         /// The IP address from which the entity was created.
         /// </summary>
-        public string? CreatedFromIp { get; set; }
+        // public string? CreatedFromIp { get; set; }
         /// <summary>
         /// The date and time when the entity was created.
         /// </summary>

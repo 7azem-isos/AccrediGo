@@ -46,11 +46,11 @@ namespace AccrediGo.Application.Features.UserManagement.Users.CreateUser
                 user.CreatedAt = request.CreatedAt;
                 
                 // Use CancellationToken in repository operations
-                var createdUser = await _unitOfWork.UserRepository.AddAsync(user, cancellationToken);
+                var createdUser = await _unitOfWork.GetRepository<User>().AddAsync(user, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
                 
-                _logger.LogInformation("Successfully created user with ID: {UserId}. CreatedBy: {CreatedBy}, CreatedFromIp: {CreatedFromIp}", 
-                    createdUser.Id, request.CreatedBy, request.CreatedFromIp);
+                // _logger.LogInformation("Successfully created user with ID: {UserId}. CreatedBy: {CreatedBy}, CreatedFromIp: {CreatedFromIp}", 
+                //     createdUser.Id, request.CreatedBy, request.CreatedFromIp);
                 
                 return _mapper.Map<CreateUserDto>(createdUser);
             }

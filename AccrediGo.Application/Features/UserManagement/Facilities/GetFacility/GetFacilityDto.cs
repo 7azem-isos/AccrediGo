@@ -13,7 +13,7 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.GetFacility
         public string? Phone { get; set; }
         public string? Tel { get; set; }
         public int CompanySize { get; set; }
-        public string? UserAgent { get; set; }
-        public string? CreatedFromIp { get; set; }
+        // public string? UserAgent { get; set; }
+        // public string? CreatedFromIp { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace AccrediGo.Application.Features.UserManagement.FacilityUsers.CreateFaci
         public string? Phone { get; set; }
         public int SystemRoleId { get; set; } = 2; // Staff member
         public string FacilityId { get; set; } = string.Empty;
-        public string? UserAgent { get; set; }
-        public string? CreatedFromIp { get; set; }
+        // public string? UserAgent { get; set; }
+        // public string? CreatedFromIp { get; set; }
     }
 }
