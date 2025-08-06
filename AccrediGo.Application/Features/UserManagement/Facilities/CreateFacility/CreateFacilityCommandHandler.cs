@@ -37,13 +37,14 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
             // _auditService.PopulateAuditInfo(request);
 
             // Create User
+            var hashedPassword = AccrediGo.Application.Common.PasswordHasher.HashPassword(request.Password ?? string.Empty);
             var user = new User
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = request.Name,
                 ArabicName = request.ArabicName,
                 Email = request.Email!,
-                Password = request.Password,
+                Password = hashedPassword,
                 PhoneNumber = request.Phone,
                 SystemRoleId = request.SystemRoleId,
                 CreatedAt = request.CreatedAt,

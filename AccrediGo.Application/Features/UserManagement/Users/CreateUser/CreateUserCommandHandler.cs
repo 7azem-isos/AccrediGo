@@ -40,7 +40,8 @@ namespace AccrediGo.Application.Features.UserManagement.Users.CreateUser
                 _auditService.PopulateAuditInfo(request);
 
                 var user = _mapper.Map<User>(request);
-                
+                // Hash the password before saving
+                user.Password = AccrediGo.Application.Common.PasswordHasher.HashPassword(request.Password ?? string.Empty);
                 // Set ID and creation timestamp
                 user.Id = Guid.NewGuid().ToString();
                 user.CreatedAt = request.CreatedAt;
