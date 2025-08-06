@@ -125,6 +125,39 @@ namespace AccrediGo
 
             var app = builder.Build();
 
+            // Seed FacilityType and Accreditation tables if missing
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AccrediGoDbContext>();
+                if (!db.FacilityTypes.Any())
+                {
+                    db.FacilityTypes.AddRange(new[]
+                    {
+                        new AccrediGo.Domain.Entities.MainComponents.FacilityType { TypeName = "Hospital" },
+                        new AccrediGo.Domain.Entities.MainComponents.FacilityType { TypeName = "Clinic" },
+                        new AccrediGo.Domain.Entities.MainComponents.FacilityType { TypeName = "Nursing Home" },
+                        new AccrediGo.Domain.Entities.MainComponents.FacilityType { TypeName = "Laboratory" },
+                        new AccrediGo.Domain.Entities.MainComponents.FacilityType { TypeName = "Pharmacy" }
+                    });
+                    db.SaveChanges();
+                }
+
+                if (!db.Accreditations.Any())
+                {
+                    db.Accreditations.AddRange(new[]
+                    {
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "1", Name = "JCI" },
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "2", Name = "GAHAR" },
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "3", Name = "CBAHI" },
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "4", Name = "ISO 9001" },
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "5", Name = "NABH" },
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "6", Name = "CARF" },
+                        new AccrediGo.Domain.Entities.MainComponents.Accreditation { Id = "7", Name = "Other" }
+                    });
+                    db.SaveChanges();
+                }
+            }
+
             // Configure the HTTP request pipeline based on environment
             ConfigurePipeline(app);
 
@@ -135,13 +168,14 @@ namespace AccrediGo
         {
             if (environment.IsDevelopment())
             {
-                // Development: Allow all origins for easier development
+                // Development: Allow only frontend dev origin for security
                 services.AddCors(options =>
                 {
                     options.AddPolicy("DevelopmentPolicy", policy =>
-                        policy.AllowAnyOrigin()
+                        policy.WithOrigins("http://localhost:3000")
                               .AllowAnyMethod()
-                              .AllowAnyHeader());
+                              .AllowAnyHeader()
+                              .AllowCredentials());
                 });
             }
             else if (environment.IsStaging())
@@ -213,11 +247,9 @@ namespace AccrediGo
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "AccrediGo API v1");
                     c.RoutePrefix = "swagger";
                 });
-                
                 // Development: More detailed error pages
                 app.UseDeveloperExceptionPage();
-                
-                // Use development CORS policy
+                // Use development CORS policy BEFORE authentication/authorization
                 app.UseCors("DevelopmentPolicy");
             }
             else if (app.Environment.IsStaging())
@@ -228,12 +260,10 @@ namespace AccrediGo
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "AccrediGo API v1");
                     c.RoutePrefix = "swagger";
                 });
-                
                 // Staging: Custom error handling
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePages();
-                
-                // Use staging CORS policy
+                // Use staging CORS policy BEFORE authentication/authorization
                 app.UseCors("StagingPolicy");
             }
             else
@@ -241,12 +271,12 @@ namespace AccrediGo
                 // Production: Minimal error information for security
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePages();
-                
-                // Use production CORS policy
+                // Use production CORS policy BEFORE authentication/authorization
                 app.UseCors("ProductionPolicy");
             }
 
             app.UseHttpsRedirection();
+            // CORS must be before authentication/authorization
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

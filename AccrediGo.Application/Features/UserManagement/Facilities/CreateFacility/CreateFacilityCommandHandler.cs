@@ -22,12 +22,12 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
         public CreateFacilityCommandHandler(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            // IAuditService auditService,
+            IAuditService auditService,
             ILogger<CreateFacilityCommandHandler> logger)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            // _auditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
+            _auditService = auditService ?? throw new ArgumentNullException(nameof(auditService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
