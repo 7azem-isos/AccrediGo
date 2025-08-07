@@ -83,6 +83,8 @@ namespace AccrediGo
             
             // Register Audit Service
             builder.Services.AddScoped<IAuditService, AuditService>();
+            // Register Mail Service
+            builder.Services.AddScoped<AccrediGo.Application.Services.IMailService, AccrediGo.Application.Services.MailService>();
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

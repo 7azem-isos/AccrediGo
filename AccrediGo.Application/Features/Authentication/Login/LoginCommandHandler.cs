@@ -25,9 +25,15 @@ namespace AccrediGo.Application.Features.Authentication.Login
             var users = await _unitOfWork.GetRepository<AccrediGo.Domain.Entities.UserDetails.User>().GetAllAsync(cancellationToken);
             var user = users.FirstOrDefault(u => u.Email.Equals(request.Email, StringComparison.OrdinalIgnoreCase));
 
+
             if (user == null)
             {
                 throw new UnauthorizedAccessException("Invalid email or password");
+            }
+
+            if (!user.IsEmailVerified)
+            {
+                throw new UnauthorizedAccessException("Please verify your email before logging in.");
             }
 
             // Use PasswordHasher to verify hashed password
