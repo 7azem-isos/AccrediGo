@@ -17,6 +17,9 @@ namespace AccrediGo.Domain.Entities.UserDetails
     [Table("Users")]
     public class User : BaseEntity
     {
+        public bool IsEmailVerified { get; set; } = false;
+        public string? EmailVerificationToken { get; set; }
+        public DateTime? EmailVerificationTokenExpiresAt { get; set; }
         /// <summary>
         /// The unique identifier for the user.
         /// </summary>

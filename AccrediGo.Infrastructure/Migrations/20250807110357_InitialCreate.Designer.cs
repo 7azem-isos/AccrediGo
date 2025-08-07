@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccrediGo.Infrastructure.Migrations
 {
     [DbContext(typeof(AccrediGoDbContext))]
-    [Migration("20250806100056_InitialCreate")]
+    [Migration("20250807110357_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -1362,7 +1362,16 @@ namespace AccrediGo.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("EmailVerificationToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EmailVerificationTokenExpiresAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEmailVerified")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
