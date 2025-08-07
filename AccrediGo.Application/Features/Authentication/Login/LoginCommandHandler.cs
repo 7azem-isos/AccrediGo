@@ -36,10 +36,19 @@ namespace AccrediGo.Application.Features.Authentication.Login
                 throw new UnauthorizedAccessException("Please verify your email before logging in.");
             }
 
+
             // Use PasswordHasher to verify hashed password
             if (!AccrediGo.Application.Common.PasswordHasher.VerifyPassword(request.Password ?? string.Empty, user.Password))
             {
                 throw new UnauthorizedAccessException("Invalid email or password");
+            }
+
+            // Facility admin approval check
+            var facilityRepo = _unitOfWork.GetRepository<AccrediGo.Domain.Entities.MainComponents.Facility>();
+            var facility = (await facilityRepo.GetAllAsync(cancellationToken)).FirstOrDefault(f => f.UserId == user.Id);
+            if (facility != null && !facility.IsApproved)
+            {
+                throw new UnauthorizedAccessException("Your account is pending admin approval.");
             }
 
             // Generate tokens

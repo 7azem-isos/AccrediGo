@@ -86,7 +86,10 @@ namespace AccrediGo.Application.Features.UserManagement.Facilities.CreateFacilit
                 CreatedBy = request.CreatedBy,
                 UserAgent = request.UserAgent,
                 CreatedFromIp = request.CreatedFromIp,
-                AuditContext = request.AuditContext
+                AuditContext = request.AuditContext,
+                IsApproved = false,
+                ApprovedAt = null,
+                ApprovedBy = null
             };
             await _unitOfWork.GetRepository<Facility>().AddAsync(facility, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

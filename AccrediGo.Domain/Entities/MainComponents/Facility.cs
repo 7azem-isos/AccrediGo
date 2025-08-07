@@ -123,6 +123,20 @@ namespace AccrediGo.Domain.Entities.MainComponents
         /// Collection of gap analysis sessions associated with this facility.
         /// </summary>
         public List<GapAnalysisSession> GapAnalysisSessions { get; set; } = new();
+        /// <summary>
+        /// Indicates if the facility account is approved by admin.
+        /// </summary>
+        public bool IsApproved { get; set; } = false;
+
+        /// <summary>
+        /// The date and time when the facility was approved.
+        /// </summary>
+        public DateTime? ApprovedAt { get; set; }
+
+        /// <summary>
+        /// The admin user who approved the facility.
+        /// </summary>
+        public string? ApprovedBy { get; set; }
     }
 }
 
